@@ -1,0 +1,7 @@
+#avatar-thumbnail {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 20%;
+    border: 1px solid #eee;
+ }

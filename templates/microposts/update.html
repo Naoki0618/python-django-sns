@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                {# views.pyからmessagesが渡された場合にのみメッセージを表示させる。#}
+                {% if messages %}
+                {% for message in messages %}
+                {# message/tagsはSettings.pyで設定している#}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                    </li>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><b>投稿の更新</b></h4>
+                        </div>
+                        {# 投稿したユーザーしか削除できない制約を追加#}
+                        {% if object.owner_id == user.id %}
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <button type="submit" class="btn btn-outline-success btn-block">
+                                    更新する
+                                </button>
+                            </form>
+                            {% else %}
+                            <p class='font-weight-bold text-danger text-center'>
+                                {{ user.get_username }}さんの投稿ではありません。
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

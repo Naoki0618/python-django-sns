@@ -1,0 +1,56 @@
+.detail {
+    padding: 5px 15px;
+}
+
+.detail_icon {
+    height: 50px;
+    width: 50px;
+    padding: 0 0;
+    object-fit: cover;
+    border-radius: 20%;
+    border: 1px solid #eee;
+    float: left;
+}
+
+.detail_username {
+    padding-top: 20px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.detail_content {
+    padding: 10px 10px;
+    margin: 0 10px;
+}
+
+.reply_items{
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+#comment-dots, #comment-heart{
+    border: white;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    margin-left: 20px;
+}
+
+#comment-dots:hover{
+    cursor: pointer;
+  }
+
+.comment_count, .favorite_count{
+    padding-top: 3px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.comment_list {
+    padding-top: 10px;
+}
+
+.post_comment {
+    padding-top: 20px;
+}

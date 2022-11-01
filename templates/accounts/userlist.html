@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <!--ページタイトル-->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4><b> ユーザー 一覧</b></h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- テーブル表の定義 -->
+                        <div class="table table-responsive">
+                            <table id='user_list' width="100%" class="table table-striped table-bordered table-hover">
+                                <!-- 表の列の定義-->
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ユーザー</th>
+                                        <th class="text-center">画像</th>
+                                    </tr>
+                                </thead>
+                                <!-- ここまでが表の列の定義-->
+                                <!-- 表のデータ部分の表示-->
+                                <tbody>
+                                    {# デフォルトはobject_listとなるが、view.pyでcontextとして指定することも出来る#}
+                                    {% for item in object_list %}
+                                    <tr class="odd gradeX text-center">
+                                        <td class="text-center" style="width: 50%">{{ item.username }}</td>
+                                        <td class="text-center" style="width: 50%">
+                                            {# ユーザーがプロフィール画像を持っている場合#}
+                                            {% if item.avatar %}
+                                            <img class="rounded img-fluid mx-auto d-block" src="{{ item.avatar.url }}"
+                                                id="avatar-thumbnail" alt="avatar_thumbnail">
+                                            {# ユーザーがプロフィール画像を持ってない場合は”avatar_thumbnailを表示 #}
+                                            {% else %}
+                                            <img class="rounded img-fluid mx-auto d-block" src="/media/upper_body-2.png"
+                                                alt="avatar_thumbnail" id="avatar-thumbnail">
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                　
+                                <!-- ここまでが表のデータ部分の表示-->
+                            </table>
+                            <!-- ここまでがテーブル表の定義 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <!--ページタイトル-->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4><b>投稿一覧</b></h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- テーブル表の定義 -->
+                        <div class="table table-responsive">
+                            <table id='post_list' width="100%" class="table table-striped table-bordered table-hover">
+                                <!-- 表の列の定義-->
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">投稿内容</th>
+                                        <th class="text-center">お気に入り</th>
+                                    </tr>
+                                </thead>
+                                <!-- ここまでが表の列の定義-->
+                                <!-- 表のデータ部分の表示-->
+                                <tbody>
+                                    {# デフォルトはobject_listとなるが、view.pyでcontextとして指定することも出来る#}
+                                    {% if object_list != 0 %}
+                                    {% for item in object_list %}
+                                    <tr class="text">
+                                        <td class="text" style="width: 80%">
+                                            <h6>{{ item.owner }}@{{ item.created_at}}</h6>
+                                            <a href="{% url 'microposts:postdetail' pk=item.pk %}">{{ item.content }}</a>
+                                        </td>
+                                        <td class="text-center align-middle" style="width: 20%">
+                                            ・・省略・・
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                                <!-- ここまでが表のデータ部分の表示-->
+                            </table>
+                            <!-- ここまでがテーブル表の定義 -->
+                        </div>
+                        {# django-bootstrap4のページネーション#}
+                        {% bootstrap_pagination page_obj extra=request.GET.urlencode %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

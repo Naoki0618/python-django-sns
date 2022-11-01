@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+   <div class="row">
+       <div class="col-sm-6 offset-sm-3">
+           <h1>ユーザー登録</h1>
+           <form method="post">
+               {% csrf_token %}
+               {% bootstrap_form form %}
+               <button type="submit" class="btn btn-primary" name="button">
+                   ユーザー登録
+               </button>
+           </form>
+       </div>
+   </div>
+{% endblock %}

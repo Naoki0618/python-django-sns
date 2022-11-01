@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><b>投稿内容</b></h4>
+                    </div>
+                    <div class="detail card-body">
+                        {% csrf_token %}
+                        <div class="detail_row">
+                            {% if owner.avatar %}
+                            <img class="detail_icon col rounded img-fluid mx-auto d-block" src="{{ owner.avatar.url }}"
+                                id="avatar-image" alt="avatar_image">
+                            {# ユーザーがプロフィール画像を持っている場合はデフォルト画像を表示#}
+                            {% else %}
+                            <img class="detail_icon col rounded img-fluid mx-auto d-block" src='/media/upper_body-2.png'
+                                id="avatar-image" alt="avatar_image">
+                            {% endif %}
+                            <div class="row detail_username">@{{ owner.username }}</div>
+                        </div>
+                    </div>
+                    <!-- {{ user }} /
+                    {{ favorites.0.user_name }} -->
+                    <div class="row detail_content">{{ post.content }}</div>
+                    <div class="row reply_items">
+                        <button id="comment-dots" class="button is-success" value="favorite" name="favorite">
+                            <i class="fa-regular fa-comment-dots"></i>
+                        </button>
+                        <div class="comment_count"> {{ comments|length }}</div>
+                        <form class="row" action="{% url 'microposts:postdetail' pk=post.pk %}" method="post">
+                            {% csrf_token %}
+                            <button id="comment-heart" class="button is-success" value="favorite" name="favorite">
+                                {% if favorites_owner == True %}
+                                    <i class="fa-solid fa-heart" style="color: red;"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-heart"></i>
+                                {% endif %}
+                            </button>
+                            <div class="favorite_count"> {{ favorites|length }}</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for comment in comments %}
+        <div class="comment_list">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <div class="comment_user_name">
+                        @{{ comment.user_name }}
+                    </div>
+                    <div class="comment_user_name">
+                        {{ comment.comment }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    <div class="post_comment row">
+        <div class="col-sm-6 offset-sm-3">
+            <form action="{% url 'microposts:postdetail' pk=post.pk %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-outline-primary btn-block">
+                    投稿する
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
